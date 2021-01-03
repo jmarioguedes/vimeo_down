@@ -5,11 +5,18 @@ __all__ = ['Downloader']
 import asyncio
 from typing import Literal
 from urllib.parse import urljoin
+from base64 import b64decode
 
 from aiohttp import ClientSession
 
 from vimeo_down.const import DIR_TEMP
 from vimeo_down.log import logger
+
+
+async def file_save(content, tp, sequence):
+    file_name = f'{DIR_TEMP}\\{tp}_{sequence:0>10d}'
+    with open(file_name, 'wb') as file:
+        file.write(content)
 
 
 class DownFrame:
@@ -28,11 +35,8 @@ class DownFrame:
                 if response.status != 200:
                     return False
 
-                file_name = f'{DIR_TEMP}\\{self.tp}_{self.sequence}'
-                with open(file_name, 'wb') as file:
-                    raw_content = await response.content.read()
-                    file.write(raw_content)
-
+                raw_content = await response.content.read()
+                await file_save(raw_content, self.tp, self.sequence)
                 return True
 
 
@@ -60,13 +64,19 @@ class Downloader:
 
         all_tasks = list()
 
+        frame_zero = b64decode(content['video'][0]['init_segment'])
+        await file_save(frame_zero, 'video', 0)
+
         for idx, video in enumerate(content['video'][0]['segments']):
             url = urljoin(video_url_base, video['url'])
             task = DownFrame(url=url, tp='video', sequence=idx + 1)()
             all_tasks.append(task)
 
+        frame_zero = b64decode(content['audio'][0]['init_segment'])
+        await file_save(frame_zero, 'audio', 0)
+
         for idx, audio in enumerate(content['audio'][0]['segments']):
-            url = urljoin(video_url_base, audio['url'])
+            url = urljoin(audio_url_base, audio['url'])
             task = DownFrame(url=url, tp='audio', sequence=idx + 1)()
             all_tasks.append(task)
 
