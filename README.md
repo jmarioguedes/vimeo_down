@@ -40,6 +40,7 @@ DIR_TEMP=
 
 ## Pendências: ##
 
-- Criar um arquivo Docker e Docker Compose
-- Juntar os arquivos via comando SH como neste projeto
-- Cobertura de testes: https://github.com/Tusko/vimeo-private-downloader/blob/master/vimeo-combine.sh
+[ ] Criar um arquivo Docker e Docker Compose
+[ ] Juntar os arquivos via comando SH como neste projeto:
+  https://github.com/Tusko/vimeo-private-downloader/blob/master/vimeo-combine.sh
+[ ] Cobertura de testes
