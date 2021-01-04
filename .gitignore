@@ -129,6 +129,9 @@ dmypy.json
 .pyre/
 .idea
 
+# Config
+*.ini
+
 # Logs
 /logs
 *.log.*

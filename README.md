@@ -9,7 +9,7 @@ O projeto foi inspirado à partir deste script: https://gist.github.com/mistic10
 
 ## Instruções para uso: ##
 
-- Crie um arquivo INI local com a seguinte estrutura:
+- Crie um arquivo local chamado `config.ini` com a seguinte estrutura:
 
 ```ini
 [GENERAL]
@@ -36,4 +36,10 @@ DIR_TEMP=
 👉🏻 Se gostou do que viu, me pague um cafezinho: Pix - jmarioguedes@gmail.com
 
 - Seja feliz!
-  
+
+
+## Pendências: ##
+
+- Criar um arquivo Docker e Docker Compose
+- Juntar os arquivos via comando SH como neste projeto
+- Cobertura de testes: https://github.com/Tusko/vimeo-private-downloader/blob/master/vimeo-combine.sh
